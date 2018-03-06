@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: develop
+---
+spring:
+  profiles: develop
+app:
+  file: unknown
+---
+spring:
+  profiles: production
+app:
+  file: ${JAR_FILE}

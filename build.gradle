@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'org.springframework.boot' version "2.0.0.RELEASE"
+    id 'com.palantir.docker' version "0.19.2"
+    id 'com.palantir.docker-run' version "0.19.2"
+}
+
+version = '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'spring.boot.example.ApplicationConfiguration'
+    }
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE"
+    testCompile "org.springframework.boot:spring-boot-starter-test:2.0.0.RELEASE"
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+    testCompile "org.spockframework:spock-spring:1.1-groovy-2.4"
+    testCompile "org.springframework:spring-test"
+    compileOnly "org.projectlombok:lombok:1.16.14"
+}
+
+
+docker {
+    name "${project.name}"
+    tags "${version}"
+    files jar.archivePath
+    buildArgs([JAR_FILE: "${jar.archiveName}"])
+    noCache true
+}
+
+dockerRun {
+    name "${project.name}-inst"
+    image "${project.name}"
+    ports '8080:8080'
+    daemonize true
+    clean true
+}
