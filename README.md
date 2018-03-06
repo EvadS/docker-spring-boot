@@ -8,7 +8,7 @@
 ```
 plugins {
     ...
-    id 'com.palantir.docker-run' version "0.19.2" // плагин для docker https://github.com/palantir/gradle-docker
+    id 'com.palantir.docker' version "0.19.2" // плагин для docker https://github.com/palantir/gradle-docker
     ...
 }
 

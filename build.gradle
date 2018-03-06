@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'groovy'
     id 'org.springframework.boot' version "2.0.0.RELEASE"
-    id 'com.palantir.docker' version "0.19.2"
+    id 'com.palantir.docker' version "0.19.2" // плагин для docker https://github.com/palantir/gradle-docker
     id 'com.palantir.docker-run' version "0.19.2" // плагин для docker https://github.com/palantir/gradle-docker
 }
 
