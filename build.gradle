@@ -3,7 +3,7 @@ plugins {
     id 'groovy'
     id 'org.springframework.boot' version "2.0.0.RELEASE"
     id 'com.palantir.docker' version "0.19.2"
-    id 'com.palantir.docker-run' version "0.19.2"
+    id 'com.palantir.docker-run' version "0.19.2" // плагин для docker https://github.com/palantir/gradle-docker
 }
 
 version = '1.0'
@@ -29,19 +29,19 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.16.14"
 }
 
-
+// конфигурация сборки образа
 docker {
-    name "${project.name}"
-    tags "${version}"
-    files jar.archivePath
-    buildArgs([JAR_FILE: "${jar.archiveName}"])
-    noCache true
+    name "${project.name}"  // название образа
+    tags "${version}"       // дополнительный тег (добавляет отдельную задачу)
+    files jar.archivePath   // передаем jar в контекст
+    buildArgs([JAR_FILE: "${jar.archiveName}"]) // передаем имя jar в качестве аргумента сборки
+    noCache true // опция --no-cache
 }
-
+// конфигурация запуска контейнера
 dockerRun {
-    name "${project.name}-inst"
-    image "${project.name}"
-    ports '8080:8080'
-    daemonize true
-    clean true
+    name "${project.name}-inst" // опция --name
+    image "${project.name}" // имя образа
+    ports '8080:8080' // опция -p
+    daemonize true // опция -d
+    clean true // опция --rm
 }
